@@ -92,7 +92,7 @@ class Zend_OpenId_Consumer
      *  with server based on Diffie-Hellman key agreement
      */
     public function __construct(
-        Zend_OpenId_Consumer_Storage $storage = null,
+        ?Zend_OpenId_Consumer_Storage $storage = null,
         $dumbMode = false
     ) {
         if ($storage === null) {
@@ -123,7 +123,7 @@ class Zend_OpenId_Consumer
         $returnTo = null,
         $root = null,
         $extensions = null,
-        Zend_Controller_Response_Abstract $response = null
+        ?Zend_Controller_Response_Abstract $response = null
     ) {
         return $this->_checkId(
             false,
@@ -155,7 +155,7 @@ class Zend_OpenId_Consumer
         $returnTo = null,
         $root = null,
         $extensions = null,
-        Zend_Controller_Response_Abstract $response = null
+        ?Zend_Controller_Response_Abstract $response = null
     ) {
         return $this->_checkId(
             true,
@@ -388,7 +388,7 @@ class Zend_OpenId_Consumer
                     $line = trim($line);
                     if (!empty($line)) {
                         $x = explode(':', $line, 2);
-                        if (is_array($x) && count($x) == 2) {
+                        if (count($x) == 2) {
                             list($key, $value) = $x;
                             $r[trim($key)]     = trim($value);
                         }
@@ -450,6 +450,7 @@ class Zend_OpenId_Consumer
      * @param string $macFunc HMAC function (sha1 or sha256)
      * @param string $secret shared secret
      * @param integer $expires expiration UNIX time
+     * @param-out float $expires
      * @return bool
      */
     protected function _getAssociation($url, &$handle, &$macFunc, &$secret, &$expires)
@@ -603,7 +604,7 @@ class Zend_OpenId_Consumer
                 $line = trim($line);
                 if (!empty($line)) {
                     $x = explode(':', $line, 2);
-                    if (is_array($x) && count($x) == 2) {
+                    if (count($x) == 2) {
                         list($key, $value) = $x;
                         $r[trim($key)]     = trim($value);
                     } else {
@@ -659,9 +660,9 @@ class Zend_OpenId_Consumer
         $handle    = $ret['assoc_handle'];
         $expiresIn = $ret['expires_in'];
 
-        if ($ret['assoc_type'] == 'HMAC-SHA1') {
+        if ($ret['assoc_type'] === 'HMAC-SHA1') {
             $macFunc = 'sha1';
-        } elseif ($ret['assoc_type'] == 'HMAC-SHA256' &&
+        } elseif ($ret['assoc_type'] === 'HMAC-SHA256' &&
             $version >= 2.0) {
             $macFunc = 'sha256';
         } else {
@@ -775,8 +776,7 @@ class Zend_OpenId_Consumer
             }
         }
 
-        /* HTML-based discovery */
-        elseif (preg_match(
+        /* HTML-based discovery */ elseif (preg_match(
             '/<link[^>]*rel=(["\'])[ \t]*(?:[^ \t"\']+[ \t]+)*?openid2.provider[ \t]*[^"\']*\\1[^>]*href=(["\'])([^"\']+)\\2[^>]*\/?>/i',
             $response,
             $r
@@ -865,7 +865,7 @@ class Zend_OpenId_Consumer
         $returnTo = null,
         $root = null,
         $extensions = null,
-        Zend_Controller_Response_Abstract $response = null
+        ?Zend_Controller_Response_Abstract $response = null
     ) {
         $this->_setError('');
 

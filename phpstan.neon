@@ -16,7 +16,8 @@ parameters:
         -
             message: '#Binary operation "\+" between int<1, max> and string results in an error\.#'
             path: ./src/Zend/OpenId/Consumer.php
+            count: 1
         -
-            message: '#Left side of && is always true\.#'
+            message: '#Strict comparison using === between .HMAC-SHA256. and .HMAC-SHA256. will always evaluate to true\.#'
             path: ./src/Zend/OpenId/Consumer.php
             count: 1
