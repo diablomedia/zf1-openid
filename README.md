@@ -6,4 +6,7 @@ Zend Framework 1 - OpenId
 [![Total Downloads](https://poser.pugx.org/diablomedia/zendframework1-openid/downloads)](https://packagist.org/packages/diablomedia/zendframework1-openid)
 [![License](https://poser.pugx.org/diablomedia/zendframework1-openid/license)](https://packagist.org/packages/diablomedia/zendframework1-openid)
 
+> [!WARNING]  
+> We've archived this repo as we're no longer using or maintaining Zend Framework 1
+
 This is just the Zend_OpenId component extracted from our fork of the Zend Framework 1 repo (https://github.com/diablomedia/zf1).
